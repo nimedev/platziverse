@@ -29,6 +29,7 @@ module.exports = async function (config) {
 
   await sequelize.authenticate()
 
+  // Delete previous databse and create new one.
   if (config.setup) {
     await sequelize.sync({ force: true })
   }

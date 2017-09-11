@@ -11,6 +11,7 @@ let config = {
 }
 
 let MetricStub = {
+  // No use sandbox because the object not change
   belongsTo: sinon.spy()
 }
 
@@ -83,6 +84,7 @@ test.beforeEach(async () => {
 })
 
 test.afterEach(() => {
+  // Reset the sandbox after each test
   sandbox && sinon.sandbox.restore()
 })
 
