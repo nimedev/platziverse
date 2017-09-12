@@ -38,3 +38,8 @@
   timestamp // generar cuando creamos el mensaje
 }
 ```
+
+## Test
+``` sh
+mqtt pub -t 'agent/message' -m '{"agent": { "uuid": "yyy", "name": "test", "username": "platzi", "pid": 10, "hostname": "platzibogota"  }, "metrics": [{ "type":"memory", "value": "1001" }, { "type": "temp", "value": "33" }]}'
+```

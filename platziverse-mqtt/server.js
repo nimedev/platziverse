@@ -109,24 +109,39 @@ server.on('published', async (packet, client) => {
           })
         }
 
+        const saveMetric = (agent, metric) => (
+          Metric.create(agent.uuid, metric).then(m => {
+            debug(`Metric ${m.id} saved on agent ${agent.uuid}`)
+            return m
+          })
+        )
+
+        const promises = payload.metrics.reduce(
+          (accumulator, metric) => accumulator.concat([saveMetric(agent, metric)]),
+          []
+        )
+
         // Store Metrics
-        for (let metric of payload.metrics) {
-          let m
+        Promise.all(promises).catch(handleError)
 
-          try {
-            m = await Metric.create(agent.uuid, metric)
-          } catch (e) {
-            return handleError(e)
-          }
+        // for (let metric of payload.metrics) {
+        //   let m
 
-          debug(`Metric ${m.id} saved on agent ${agent.uuid}`)
-        }
+        //   try {
+        //     m = await Metric.create(agent.uuid, metric)
+        //   } catch (e) {
+        //     return handleError(e)
+        //   }
+
+        //   debug(`Metric ${m.id} saved on agent ${agent.uuid}`)
+        // }
       }
       break
   }
 })
 
 server.on('ready', async () => {
+  console.log('CONFIG', config)
   const services = await db(config).catch(handleFatalError)
 
   Agent = services.Agent
