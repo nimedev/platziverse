@@ -18,6 +18,11 @@ app.use('/api', api)
 app.use((err, req, res, next) => {
   debug(`Error: ${err.message}`)
 
+  // Response with the error if has a status property
+  if (err.status) {
+    return res.status(err.status).send(err)
+  }
+
   if (err.message.match(/not found/)) {
     return res.status(404).send({ error: err.message })
   }

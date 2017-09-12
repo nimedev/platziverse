@@ -8,6 +8,7 @@ const guard = require('express-jwt-permissions')()
 const db = require('platziverse-db')
 
 const config = require('./config')
+const errors = require('./errors')
 
 const api = asyncify(express.Router())
 
@@ -64,7 +65,7 @@ api.get('/agent/:uuid', async (req, res, next) => {
   }
 
   if (!agent) {
-    return next(new Error(`Agent not found with uuid ${uuid}`))
+    return next(errors('AgentNotFound'))
   }
 
   res.send(agent)
