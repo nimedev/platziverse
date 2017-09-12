@@ -31,6 +31,8 @@ function handleFatalError (err) {
   process.exit(1)
 }
 
+// Run the server when this module is not required.
+// This is used for tests.
 if (!module.parent) {
   process.on('uncaughtException', handleFatalError)
   process.on('unhandledRejection', handleFatalError)
