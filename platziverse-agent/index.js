@@ -69,6 +69,7 @@ class PlatziverseAgent extends EventEmitter {
             }
 
             for (let [ metric, fn ] of this._metrics) {
+              // This check the number of arguments of a function.
               if (fn.length === 1) {
                 fn = util.promisify(fn)
               }

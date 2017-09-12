@@ -12,6 +12,7 @@ const agent = new PlatziverseAgent({
 })
 
 agent.addMetric('rss', function getRss () {
+  // Retur the memory used by the process!!!!!
   return process.memoryUsage().rss
 })
 
@@ -43,3 +44,7 @@ function handler (payload) {
 
 setTimeout(() => agent.disconnect(), 20000)
 ```
+
+## NOTES
+
+- You can use `utils.promisify` to convert a callback function to a promise.
