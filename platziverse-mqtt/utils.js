@@ -1,3 +1,7 @@
+/**
+ * Is used to format the message received in mqtt 'publish' event
+ */
+
 'use strict'
 
 function parsePayload (payload) {

@@ -33,11 +33,13 @@ const clients = new Map()
 
 let Agent, Metric
 
+// When mqtt client has been connected
 server.on('clientConnected', client => {
   debug(`Client Connected: ${client.id}`)
   clients.set(client.id, null)
 })
 
+// When mqtt client has been disconnected
 server.on('clientDisconnected', async (client) => {
   debug(`Client Disconnected: ${client.id}`)
   const agent = clients.get(client.id)
@@ -68,6 +70,7 @@ server.on('clientDisconnected', async (client) => {
 })
 
 server.on('published', async (packet, client) => {
+  // Type of the message
   debug(`Received: ${packet.topic}`)
 
   switch (packet.topic) {
@@ -148,5 +151,7 @@ function handleError (err) {
   console.error(err.stack)
 }
 
+// Always handle errors when use event emitters
+// Is a good practice in javacript projects
 process.on('uncaughtException', handleFatalError)
 process.on('unhandledRejection', handleFatalError)
