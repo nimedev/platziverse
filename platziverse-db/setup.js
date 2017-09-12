@@ -6,11 +6,12 @@ const chalk = require('chalk')
 const minimist = require('minimist')
 const db = require('./')
 
-const args = minimist(process.argv)
 const prompt = inquirer.createPromptModule()
 
+const showPrompt = () => (process.argv.includes('-y') || process.argv.includes('--yes'))
+
 async function setup () {
-  if (!args.yes) {
+  if (!showPrompt()) {
     const answer = await prompt([
       {
         type: 'confirm',
