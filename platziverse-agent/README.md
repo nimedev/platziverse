@@ -44,7 +44,3 @@ function handler (payload) {
 
 setTimeout(() => agent.disconnect(), 20000)
 ```
-
-## NOTES
-
-- You can use `utils.promisify` to convert a callback function to a promise.
